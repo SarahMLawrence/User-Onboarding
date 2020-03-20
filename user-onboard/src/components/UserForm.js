@@ -5,22 +5,24 @@ import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
+import avatar from '../assets/avatar.png';
+
 const UserForm = ({ values, touched, errors, status }) => {
   const [users, setUser] = useState([]);
 
   useEffect(() => {
     console.log("Status:", status)
-    status && setUser( users => 
+    status && setUser(users =>
       [...users, status])
-    }, [status]);
+  }, [status]);
 
 
   return (
     <div className='form-container'>
       <div className='img-container'>
-        <img src="avatar.png" alt="Avatar" class="avatar"></img>
+        <img src={avatar} alt="Avatar" class="avatar"></img>
       </div>
-      
+
       <div className='form-signup'>
         <Form>
           <Field type='text' name='name' placeholder='Name:' />
@@ -35,35 +37,33 @@ const UserForm = ({ values, touched, errors, status }) => {
           {touched.password && errors.password && (
             <p className='errors'>{errors.password}</p>
           )}
-          <Field
-            type='checkbox'
-            checked={values.tos}
-            name='tos'
-          />
-          <button type='submit' disabled={values.isSubmitting}>
-            {values.isSubmitting ? 'Submitting' : 'Submit'}
-          </button>
+          <label htmlFor="checkbox">Terms Of Service</label>
+          <Field type="checkbox" checked={values.tos} name='tos' />
+
+            <button type='submit' disabled={values.isSubmitting}>
+              {values.isSubmitting ? 'Submitting' : 'Submit'}
+            </button>
         </Form>
       </div>
-      <div >
-      <div className="user-list">
-      {users.map(list => (
-        <div className="card" key={list.id}>
-          <h2>Name: {list.name}</h2>
-          <h2>Email: {list.email}</h2>
-          <h2>Password: {list.password}</h2>
+        <div >
+          <div className="user-list">
+            {users.map(list => (
+              <div className="card" key={list.id}>
+                <h2>Name: {list.name}</h2>
+                <h2>Email: {list.email}</h2>
+                <h2>Password: {list.password}</h2>
 
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-    </div>
       </div>
-    </div>
   );
 };
 
 export default withFormik({
-    mapPropsToValues: props => ({
-      name: '',
+        mapPropsToValues: props => ({
+        name: '',
       email: '',
       password: '',
       TermsOfService: false
@@ -77,14 +77,14 @@ export default withFormik({
       email: Yup.string().min(10, "Must be at least 10 chars long."),
     tos: Yup.boolean().oneOf([true], "Please check box.")
   }),
-  handleSubmit: (values, { resetForm, setStatus }) => {
-    axios.post('https://reqres.in/api/users', values)
-      .then(response => {
-        console.log('Submitted Successfully', response);
-        resetForm();
-        setStatus(response.data);
-      })
-      .catch(err => console.log(err.response));
+  handleSubmit: (values, { resetForm, setStatus}) => {
+        axios.post('https://reqres.in/api/users', values)
+          .then(response => {
+            console.log('Submitted Successfully', response);
+            resetForm();
+            setStatus(response.data);
+          })
+          .catch(err => console.log(err.response));
   }
 })(UserForm);
 
