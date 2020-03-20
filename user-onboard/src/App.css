@@ -43,6 +43,7 @@
 .form-container{
   border: 3px solid #f1f1f1;
   margin-top: 10px;
+  width: 50%;
 }
 
 input[type=text], input[type=password], input[type=email] {
@@ -85,8 +86,9 @@ label {
 }
 
 img.avatar {
-  width: 40%;
+  width: 20%;
   border-radius: 50%;
+  margin-top: 5%;
 }
 
 .form-signup {
