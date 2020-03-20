@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
 
+
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -16,6 +17,10 @@ const UserForm = ({ values, touched, errors, status }) => {
 
   return (
     <div className='form-container'>
+      <div className='img-container'>
+        <img src="img_avatar2.png" alt="Avatar" class="avatar"></img>
+      </div>
+      
       <div className='form-signup'>
         <Form>
           <Field type='text' name='name' placeholder='Name:' />
@@ -43,7 +48,7 @@ const UserForm = ({ values, touched, errors, status }) => {
       <div >
       <div className="user-list">
       {users.map(list => (
-        <div className="note" key={list.id}>
+        <div className="card" key={list.id}>
           <h2>Name: {list.name}</h2>
           <h2>Email: {list.email}</h2>
           <h2>Password: {list.password}</h2>
