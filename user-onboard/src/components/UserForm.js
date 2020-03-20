@@ -18,7 +18,7 @@ const UserForm = ({ values, touched, errors, status }) => {
   return (
     <div className='form-container'>
       <div className='img-container'>
-        <img src="img_avatar2.png" alt="Avatar" class="avatar"></img>
+        <img src="avatar.png" alt="Avatar" class="avatar"></img>
       </div>
       
       <div className='form-signup'>
